@@ -3,42 +3,41 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class T00_siswa extends CI_Controller
+class T01_sekolah extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('T00_siswa_model');
-        $this->load->library('form_validation');
+        $this->load->model('T01_sekolah_model');
+        $this->load->library('form_validation');        
 	$this->load->library('datatables');
     }
 
     public function index()
     {
-        // $this->load->view('t00_siswa/t00_siswa_list');
-        $data['_view'] = 't00_siswa/t00_siswa_list';
+        // $this->load->view('t01_sekolah/t01_sekolah_list');
+        $data['_view'] = 't01_sekolah/t01_sekolah_list';
         $this->load->view('dashboard/dashboard', $data);
     }
 
     public function json() {
         header('Content-Type: application/json');
-        echo $this->T00_siswa_model->json();
+        echo $this->T01_sekolah_model->json();
     }
 
     public function read($id)
     {
-        $row = $this->T00_siswa_model->get_by_id($id);
+        $row = $this->T01_sekolah_model->get_by_id($id);
         if ($row) {
             $data = array(
 		'id' => $row->id,
-		'nik' => $row->nik,
 		'nama' => $row->nama,
-		'tgl_lahir' => $row->tgl_lahir,
+		'alamat' => $row->alamat,
 	    );
-            $this->load->view('t00_siswa/t00_siswa_read', $data);
+            $this->load->view('t01_sekolah/t01_sekolah_read', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         }
     }
 
@@ -46,13 +45,12 @@ class T00_siswa extends CI_Controller
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('t00_siswa/create_action'),
+            'action' => site_url('t01_sekolah/create_action'),
 	    'id' => set_value('id'),
-	    'nik' => set_value('nik'),
 	    'nama' => set_value('nama'),
-	    'tgl_lahir' => set_value('tgl_lahir'),
+	    'alamat' => set_value('alamat'),
 	);
-        $this->load->view('t00_siswa/t00_siswa_form', $data);
+        $this->load->view('t01_sekolah/t01_sekolah_form', $data);
     }
 
     public function create_action()
@@ -63,34 +61,32 @@ class T00_siswa extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nik' => $this->input->post('nik',TRUE),
 		'nama' => $this->input->post('nama',TRUE),
-		'tgl_lahir' => $this->input->post('tgl_lahir',TRUE),
+		'alamat' => $this->input->post('alamat',TRUE),
 	    );
 
-            $this->T00_siswa_model->insert($data);
+            $this->T01_sekolah_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         }
     }
 
     public function update($id)
     {
-        $row = $this->T00_siswa_model->get_by_id($id);
+        $row = $this->T01_sekolah_model->get_by_id($id);
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('t00_siswa/update_action'),
+                'action' => site_url('t01_sekolah/update_action'),
 		'id' => set_value('id', $row->id),
-		'nik' => set_value('nik', $row->nik),
 		'nama' => set_value('nama', $row->nama),
-		'tgl_lahir' => set_value('tgl_lahir', $row->tgl_lahir),
+		'alamat' => set_value('alamat', $row->alamat),
 	    );
-            $this->load->view('t00_siswa/t00_siswa_form', $data);
+            $this->load->view('t01_sekolah/t01_sekolah_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         }
     }
 
@@ -102,36 +98,34 @@ class T00_siswa extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'nik' => $this->input->post('nik',TRUE),
 		'nama' => $this->input->post('nama',TRUE),
-		'tgl_lahir' => $this->input->post('tgl_lahir',TRUE),
+		'alamat' => $this->input->post('alamat',TRUE),
 	    );
 
-            $this->T00_siswa_model->update($this->input->post('id', TRUE), $data);
+            $this->T01_sekolah_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         }
     }
 
     public function delete($id)
     {
-        $row = $this->T00_siswa_model->get_by_id($id);
+        $row = $this->T01_sekolah_model->get_by_id($id);
 
         if ($row) {
-            $this->T00_siswa_model->delete($id);
+            $this->T01_sekolah_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('t00_siswa'));
+            redirect(site_url('t01_sekolah'));
         }
     }
 
     public function _rules()
     {
-	$this->form_validation->set_rules('nik', 'nik', 'trim|required');
 	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
-	$this->form_validation->set_rules('tgl_lahir', 'tgl lahir', 'trim|required');
+	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -140,8 +134,8 @@ class T00_siswa extends CI_Controller
     public function excel()
     {
         $this->load->helper('exportexcel');
-        $namaFile = "t00_siswa.xls";
-        $judul = "t00_siswa";
+        $namaFile = "t01_sekolah.xls";
+        $judul = "t01_sekolah";
         $tablehead = 0;
         $tablebody = 1;
         $nourut = 1;
@@ -159,18 +153,16 @@ class T00_siswa extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Nik");
 	xlsWriteLabel($tablehead, $kolomhead++, "Nama");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Lahir");
+	xlsWriteLabel($tablehead, $kolomhead++, "Alamat");
 
-	foreach ($this->T00_siswa_model->get_all() as $data) {
+	foreach ($this->T01_sekolah_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->nik);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->nama);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->tgl_lahir);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->alamat);
 
 	    $tablebody++;
             $nourut++;
@@ -183,20 +175,20 @@ class T00_siswa extends CI_Controller
     public function word()
     {
         header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=t00_siswa.doc");
+        header("Content-Disposition: attachment;Filename=t01_sekolah.doc");
 
         $data = array(
-            't00_siswa_data' => $this->T00_siswa_model->get_all(),
+            't01_sekolah_data' => $this->T01_sekolah_model->get_all(),
             'start' => 0
         );
 
-        $this->load->view('t00_siswa/t00_siswa_doc',$data);
+        $this->load->view('t01_sekolah/t01_sekolah_doc',$data);
     }
 
 }
 
-/* End of file T00_siswa.php */
-/* Location: ./application/controllers/T00_siswa.php */
+/* End of file T01_sekolah.php */
+/* Location: ./application/controllers/T01_sekolah.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2022-03-26 13:19:52 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2022-03-27 13:06:00 */
 /* http://harviacode.com */

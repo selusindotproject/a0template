@@ -16,17 +16,17 @@ class " . $c . " extends CI_Controller
 if ($jenis_tabel <> 'reguler_table') {
     $string .= "        \n\t\$this->load->library('datatables');";
 }
-        
+
 $string .= "
     }";
 
 if ($jenis_tabel == 'reguler_table') {
-    
+
 $string .= "\n\n    public function index()
     {
         \$q = urldecode(\$this->input->get('q', TRUE));
         \$start = intval(\$this->input->get('start'));
-        
+
         if (\$q <> '') {
             \$config['base_url'] = base_url() . '$c_url/index.html?q=' . urlencode(\$q);
             \$config['first_url'] = base_url() . '$c_url/index.html?q=' . urlencode(\$q);
@@ -54,20 +54,22 @@ $string .= "\n\n    public function index()
     }";
 
 } else {
-    
+
 $string .="\n\n    public function index()
     {
-        \$this->load->view('$c_url/$v_list');
-    } 
-    
+        // \$this->load->view('$c_url/$v_list');
+        \$data['_view'] = '$c_url/$v_list';
+        \$this->load->view('dashboard/dashboard', \$data);
+    }
+
     public function json() {
         header('Content-Type: application/json');
         echo \$this->" . $m . "->json();
     }";
 
 }
-    
-$string .= "\n\n    public function read(\$id) 
+
+$string .= "\n\n    public function read(\$id)
     {
         \$row = \$this->" . $m . "->get_by_id(\$id);
         if (\$row) {
@@ -83,7 +85,7 @@ $string .= "\n\t    );
         }
     }
 
-    public function create() 
+    public function create()
     {
         \$data = array(
             'button' => 'Create',
@@ -94,8 +96,8 @@ foreach ($all as $row) {
 $string .= "\n\t);
         \$this->load->view('$c_url/$v_form', \$data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         \$this->_rules();
 
@@ -113,8 +115,8 @@ $string .= "\n\t    );
             redirect(site_url('$c_url'));
         }
     }
-    
-    public function update(\$id) 
+
+    public function update(\$id)
     {
         \$row = \$this->".$m."->get_by_id(\$id);
 
@@ -132,8 +134,8 @@ $string .= "\n\t    );
             redirect(site_url('$c_url'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         \$this->_rules();
 
@@ -143,7 +145,7 @@ $string .= "\n\t    );
             \$data = array(";
 foreach ($non_pk as $row) {
     $string .= "\n\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
-}    
+}
 $string .= "\n\t    );
 
             \$this->".$m."->update(\$this->input->post('$pk', TRUE), \$data);
@@ -151,8 +153,8 @@ $string .= "\n\t    );
             redirect(site_url('$c_url'));
         }
     }
-    
-    public function delete(\$id) 
+
+    public function delete(\$id)
     {
         \$row = \$this->".$m."->get_by_id(\$id);
 
@@ -166,12 +168,12 @@ $string .= "\n\t    );
         }
     }
 
-    public function _rules() 
+    public function _rules()
     {";
 foreach ($non_pk as $row) {
     $int = $row3['data_type'] == 'int' || $row['data_type'] == 'double' || $row['data_type'] == 'decimal' ? '|numeric' : '';
     $string .= "\n\t\$this->form_validation->set_rules('".$row['column_name']."', '".  strtolower(label($row['column_name']))."', 'trim|required$int');";
-}    
+}
 $string .= "\n\n\t\$this->form_validation->set_rules('$pk', '$pk', 'trim');";
 $string .= "\n\t\$this->form_validation->set_error_delimiters('<span class=\"text-danger\">', '</span>');
     }";
@@ -232,7 +234,7 @@ if ($export_word == '1') {
             '" . $table_name . "_data' => \$this->" . $m . "->get_all(),
             'start' => 0
         );
-        
+
         \$this->load->view('" . $c_url ."/". $v_doc . "',\$data);
     }";
 }
@@ -244,13 +246,13 @@ if ($export_pdf == '1') {
             '" . $table_name . "_data' => \$this->" . $m . "->get_all(),
             'start' => 0
         );
-        
+
         ini_set('memory_limit', '32M');
         \$html = \$this->load->view('" . $c_url ."/". $v_pdf . "', \$data, true);
         \$this->load->library('pdf');
         \$pdf = \$this->pdf->load();
         \$pdf->WriteHTML(\$html);
-        \$pdf->Output('" . $table_name . ".pdf', 'D'); 
+        \$pdf->Output('" . $table_name . ".pdf', 'D');
     }";
 }
 
