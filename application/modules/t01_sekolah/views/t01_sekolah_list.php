@@ -2,6 +2,7 @@
 <div class="card">
 
     <div class="card-body">
+        <p><a href="<?= site_url() ?>t01_sekolah/create" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp;Tambah</a></p>
         <table id="list" class="table table-bordered table-striped">
             <thead>
                 <tr>

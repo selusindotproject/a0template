@@ -21,7 +21,9 @@ class T00_siswa_model extends CI_Model
         $this->datatables->from('t00_siswa');
         //add this line for join
         //$this->datatables->join('table2', 't00_siswa.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('t00_siswa/read/$1'),'Read')." | ".anchor(site_url('t00_siswa/update/$1'),'Update')." | ".anchor(site_url('t00_siswa/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
+        $this->datatables->add_column('action',
+        anchor(site_url('t00_siswa/update/$1'), '<i class="fa fa-edit"></i>', 'class="btn btn-primary" title="Ubah"')
+        .'&nbsp;'.anchor(site_url('t00_siswa/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-danger" title="Hapus" onclick="javascript: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
 
@@ -38,7 +40,7 @@ class T00_siswa_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id', $q);
