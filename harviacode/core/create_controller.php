@@ -58,6 +58,7 @@ $string .= "\n\n    public function index()
 $string .="\n\n    public function index()
     {
         // \$this->load->view('$c_url/$v_list');
+        \$data['_judulHalaman'] = 'Data ".ucfirst(substr($c_url, 4))."';
         \$data['_view'] = '$c_url/$v_list';
         \$this->load->view('dashboard/dashboard', \$data);
     }
@@ -78,7 +79,10 @@ foreach ($all as $row) {
     $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => \$row->" . $row['column_name'] . ",";
 }
 $string .= "\n\t\t\t);
-            \$this->load->view('$c_url/$v_read', \$data);
+            //\$this->load->view('$c_url/$v_read', \$data);
+            \$data['_judulHalaman'] = 'Data ".ucfirst(substr($c_url, 4))."';
+            \$data['_view'] = '$c_url/$v_read';
+            \$this->load->view('dashboard/dashboard', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('$c_url'));
@@ -88,13 +92,17 @@ $string .= "\n\t\t\t);
     public function create()
     {
         \$data = array(
-            'button' => 'Create',
+            'button' => 'Simpan',
             'action' => site_url('$c_url/create_action'),";
 foreach ($all as $row) {
     $string .= "\n\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "'),";
 }
 $string .= "\n\t\t);
-        \$this->load->view('$c_url/$v_form', \$data);
+        //\$this->load->view('$c_url/$v_form', \$data);
+        \$data['_judulHalaman'] = 'Data ".ucfirst(substr($c_url, 4))."';
+        \$data['_judulForm'] = 'Tambah Data';
+        \$data['_view'] = '$c_url/$v_form';
+        \$this->load->view('dashboard/dashboard', \$data);
     }
 
     public function create_action()
@@ -122,13 +130,17 @@ $string .= "\n\t\t\t);
 
         if (\$row) {
             \$data = array(
-                'button' => 'Update',
+                'button' => 'Simpan',
                 'action' => site_url('$c_url/update_action'),";
 foreach ($all as $row) {
     $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "', \$row->". $row['column_name']."),";
 }
 $string .= "\n\t\t\t);
-            \$this->load->view('$c_url/$v_form', \$data);
+            //\$this->load->view('$c_url/$v_form', \$data);
+            \$data['_judulHalaman'] = 'Data ".ucfirst(substr($c_url, 4))."';
+            \$data['_judulForm'] = 'Ubah Data';
+            \$data['_view'] = '$c_url/$v_form';
+            \$this->load->view('dashboard/dashboard', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('$c_url'));

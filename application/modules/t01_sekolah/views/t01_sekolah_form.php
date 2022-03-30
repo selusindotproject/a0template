@@ -1,28 +1,37 @@
-<!doctype html>
-<html>
-    <head>
-        <title>harviacode.com - codeigniter crud generator</title>
-        <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>"/>
-        <style>
-            body{
-                padding: 15px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2 style="margin-top:0px">T01_sekolah <?php echo $button ?></h2>
-        <form action="<?php echo $action; ?>" method="post">
-	    <div class="form-group">
-            <label for="varchar">Nama <?php echo form_error('nama') ?></label>
-            <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+
+<div class="card card-primary">
+
+    <div class="card-header">
+        <h3 class="card-title"><?= $_judulForm ?></h3>
+    </div>
+
+    <form class="form-horizontal" action="<?php echo $action; ?>" method="post">
+
+    <div class="card-body">
+
+        <div class="form-group row">
+            <label for="varchar" class="col-sm-2 col-form-label">Nama <?php echo form_error('nama') ?></label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" />
+            </div>
         </div>
-	    <div class="form-group">
-            <label for="alamat">Alamat <?php echo form_error('alamat') ?></label>
-            <textarea class="form-control" rows="3" name="alamat" id="alamat" placeholder="Alamat"><?php echo $alamat; ?></textarea>
+        
+        <div class="form-group row">
+            <label for="alamat" class="col-sm-2 col-form-label">Alamat <?php echo form_error('alamat') ?></label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" name="alamat" id="alamat" placeholder="Alamat"><?php echo $alamat; ?></textarea>
+            </div>
         </div>
-	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
-	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
-	    <a href="<?php echo site_url('t01_sekolah') ?>" class="btn btn-default">Cancel</a>
-	</form>
-    </body>
-</html>
+        
+    </div>
+
+    <input type="hidden" name="id" value="<?php echo $id; ?>" />
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
+        <a href="<?php echo site_url('t01_sekolah') ?>" class="btn btn-default">Batal</a>
+    </div>
+
+    </form>
+
+</div>

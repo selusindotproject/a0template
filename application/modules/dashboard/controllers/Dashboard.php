@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data = array(
+            '_judulHalaman' => 'Dashboard',
             '_view' => 'dashboard_list'
         );
         $this->load->view('dashboard', $data);
