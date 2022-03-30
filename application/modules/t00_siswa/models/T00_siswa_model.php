@@ -23,7 +23,8 @@ class T00_siswa_model extends CI_Model
         //$this->datatables->join('table2', 't00_siswa.field = table2.field');
         $this->datatables->add_column('action',
         anchor(site_url('t00_siswa/update/$1'), '<i class="fa fa-edit"></i>', 'class="btn btn-primary" title="Ubah"')
-        .'&nbsp;'.anchor(site_url('t00_siswa/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-danger" title="Hapus" onclick="javascript: return confirm(\'Are You Sure ?\')"'), 'id');
+        .'&nbsp;'
+        .anchor(site_url('t00_siswa/delete/$1'),'<i class="fa fa-trash"></i>','class="btn btn-danger" title="Hapus" onclick="javascript: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }
 

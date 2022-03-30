@@ -14,7 +14,7 @@ class " . $c . " extends CI_Controller
         \$this->load->library('form_validation');";
 
 if ($jenis_tabel <> 'reguler_table') {
-    $string .= "        \n\t\$this->load->library('datatables');";
+    $string .= "\n\t\t\$this->load->library('datatables');";
 }
 
 $string .= "
@@ -75,9 +75,9 @@ $string .= "\n\n    public function read(\$id)
         if (\$row) {
             \$data = array(";
 foreach ($all as $row) {
-    $string .= "\n\t\t'" . $row['column_name'] . "' => \$row->" . $row['column_name'] . ",";
+    $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => \$row->" . $row['column_name'] . ",";
 }
-$string .= "\n\t    );
+$string .= "\n\t\t\t);
             \$this->load->view('$c_url/$v_read', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
@@ -91,9 +91,9 @@ $string .= "\n\t    );
             'button' => 'Create',
             'action' => site_url('$c_url/create_action'),";
 foreach ($all as $row) {
-    $string .= "\n\t    '" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "'),";
+    $string .= "\n\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "'),";
 }
-$string .= "\n\t);
+$string .= "\n\t\t);
         \$this->load->view('$c_url/$v_form', \$data);
     }
 
@@ -106,9 +106,9 @@ $string .= "\n\t);
         } else {
             \$data = array(";
 foreach ($non_pk as $row) {
-    $string .= "\n\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
+    $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
 }
-$string .= "\n\t    );
+$string .= "\n\t\t\t);
 
             \$this->".$m."->insert(\$data);
             \$this->session->set_flashdata('message', 'Create Record Success');
@@ -125,9 +125,9 @@ $string .= "\n\t    );
                 'button' => 'Update',
                 'action' => site_url('$c_url/update_action'),";
 foreach ($all as $row) {
-    $string .= "\n\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "', \$row->". $row['column_name']."),";
+    $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "', \$row->". $row['column_name']."),";
 }
-$string .= "\n\t    );
+$string .= "\n\t\t\t);
             \$this->load->view('$c_url/$v_form', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Record Not Found');
@@ -144,9 +144,9 @@ $string .= "\n\t    );
         } else {
             \$data = array(";
 foreach ($non_pk as $row) {
-    $string .= "\n\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
+    $string .= "\n\t\t\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
 }
-$string .= "\n\t    );
+$string .= "\n\t\t\t);
 
             \$this->".$m."->update(\$this->input->post('$pk', TRUE), \$data);
             \$this->session->set_flashdata('message', 'Update Record Success');
@@ -172,10 +172,10 @@ $string .= "\n\t    );
     {";
 foreach ($non_pk as $row) {
     $int = $row3['data_type'] == 'int' || $row['data_type'] == 'double' || $row['data_type'] == 'decimal' ? '|numeric' : '';
-    $string .= "\n\t\$this->form_validation->set_rules('".$row['column_name']."', '".  strtolower(label($row['column_name']))."', 'trim|required$int');";
+    $string .= "\n\t\t\$this->form_validation->set_rules('".$row['column_name']."', '".  strtolower(label($row['column_name']))."', 'trim|required$int');";
 }
-$string .= "\n\n\t\$this->form_validation->set_rules('$pk', '$pk', 'trim');";
-$string .= "\n\t\$this->form_validation->set_error_delimiters('<span class=\"text-danger\">', '</span>');
+$string .= "\n\n\t\t\$this->form_validation->set_rules('$pk', '$pk', 'trim');";
+$string .= "\n\t\t\$this->form_validation->set_error_delimiters('<span class=\"text-danger\">', '</span>');
     }";
 
 if ($export_excel == '1') {

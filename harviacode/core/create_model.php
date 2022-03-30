@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $string = "<?php
 
@@ -18,20 +18,23 @@ class " . $m . " extends CI_Model
     }";
 
 if ($jenis_tabel <> 'reguler_table') {
-    
+
 $column_all = array();
 foreach ($all as $row) {
     $column_all[] = $row['column_name'];
 }
 $columnall = implode(',', $column_all);
-    
+
 $string .="\n\n    // datatables
     function json() {
         \$this->datatables->select('".$columnall."');
         \$this->datatables->from('".$table_name."');
         //add this line for join
         //\$this->datatables->join('table2', '".$table_name.".field = table2.field');
-        \$this->datatables->add_column('action', anchor(site_url('".$c_url."/read/\$1'),'Read').\" | \".anchor(site_url('".$c_url."/update/\$1'),'Update').\" | \".anchor(site_url('".$c_url."/delete/\$1'),'Delete','onclick=\"javasciprt: return confirm(\\'Are You Sure ?\\')\"'), '$pk');
+        \$this->datatables->add_column('action',
+        anchor(site_url('".$c_url."/update/$1'), '<i class=\"fa fa-edit\"></i>', 'class=\"btn btn-primary\" title=\"Ubah\"')
+        .'&nbsp;'
+        .anchor(site_url('".$c_url."/delete/$1'),'<i class=\"fa fa-trash\"></i>','class=\"btn btn-danger\" title=\"Hapus\" onclick=\"javascript: return confirm(\'Are You Sure ?\')\"'), 'id');
         return \$this->datatables->generate();
     }";
 }
@@ -49,16 +52,16 @@ $string .="\n\n    // get all
         \$this->db->where(\$this->id, \$id);
         return \$this->db->get(\$this->table)->row();
     }
-    
+
     // get total rows
     function total_rows(\$q = NULL) {
         \$this->db->like('$pk', \$q);";
 
 foreach ($non_pk as $row) {
-    $string .= "\n\t\$this->db->or_like('" . $row['column_name'] ."', \$q);";
-}    
+    $string .= "\n\t\t\$this->db->or_like('" . $row['column_name'] ."', \$q);";
+}
 
-$string .= "\n\t\$this->db->from(\$this->table);
+$string .= "\n\t\t\$this->db->from(\$this->table);
         return \$this->db->count_all_results();
     }
 
@@ -68,10 +71,10 @@ $string .= "\n\t\$this->db->from(\$this->table);
         \$this->db->like('$pk', \$q);";
 
 foreach ($non_pk as $row) {
-    $string .= "\n\t\$this->db->or_like('" . $row['column_name'] ."', \$q);";
-}    
+    $string .= "\n\t\t\$this->db->or_like('" . $row['column_name'] ."', \$q);";
+}
 
-$string .= "\n\t\$this->db->limit(\$limit, \$start);
+$string .= "\n\t\t\$this->db->limit(\$limit, \$start);
         return \$this->db->get(\$this->table)->result();
     }
 
