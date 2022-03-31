@@ -183,20 +183,82 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
+
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
+
                             <div class="col-sm-6">
                                 <!-- <h1 class="m-0">Dashboard</h1> -->
                                 <h1 class="m-0"><?= $_judulHalaman ?></h1>
                             </div><!-- /.col -->
+
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+
+                                <!-- <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="<?= site_url() ?>">Home</a></li>
                                     <li class="breadcrumb-item active">Dashboard v1</li>
+                                </ol> -->
+
+                                <!-- Breadcrumbs-->
+                                <ol class="breadcrumb float-sm-right">
+
+                                    <?php if ($this->uri->segments == null) { ?>
+                                        <li class="breadcrumb-item active">Dashboard</li>
+                                    <?php } else { ?>
+
+                                        <li class="breadcrumb-item"><a href="<?= site_url() ?>">Dashboard</a></li>
+
+                                        <?php
+                                        // counter untuk menandai breadcrumb pertama
+                                        $b = 1;
+                                        ?>
+                                        <?php foreach ($this->uri->segments as $segment): ?>
+
+                                            <?php if ($segment == 'update') { ?>
+                                                <li class="breadcrumb-item active">Ubah Data</li>
+                                                <?php break; ?>
+                                            <?php } ?>
+
+                                            <?php
+                                            $url = substr($this->uri->uri_string, 0, strpos($this->uri->uri_string, $segment)) . $segment;
+                                            $is_active = $url == $this->uri->uri_string;
+                                            ?>
+
+                                            <li class="breadcrumb-item <?php echo $is_active ? 'active': '' ?>">
+                                                <?php if($is_active): ?>
+                                                    <?php
+                                                    if ($b == 1) {
+                                                        $b = 0;
+                                                        // $segment = substr($segment, 4);
+                                                        $segment = $_judulHalaman;
+                                                    } else {
+                                                        $segment = $_judulForm;
+                                                    }
+                                                    ?>
+                                                    <?php echo ucfirst($segment) ?>
+                                                <?php else: ?>
+                                                    <?php
+                                                    if ($b == 1) {
+                                                        $b = 0;
+                                                        // $segment = substr($segment, 4);
+                                                        $segment = $_judulHalaman;
+                                                    } else {
+                                                        $segment = $_judulForm;
+                                                    }
+                                                    ?>
+                                                    <a href="<?php echo site_url($url) ?>"><?php echo ucfirst($segment) ?></a>
+                                                <?php endif; ?>
+                                            </li>
+
+                                        <?php endforeach; ?>
+                                    <?php } ?>
+
                                 </ol>
+
                             </div><!-- /.col -->
+
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
                 </div>
