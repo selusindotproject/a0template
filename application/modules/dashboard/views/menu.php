@@ -11,24 +11,12 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= base_url() ?>assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <!-- <img src="<?= base_url() ?>assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
             </div>
             <div class="info">
                 <a href="#" class="d-block">Alexander Pierce</a>
             </div>
         </div>
-
-        <!-- SidebarSearch Form -->
-        <!-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -48,10 +36,12 @@
                 $activeHeadMenu['master'] = '';
                 $activeSubMenu['t00_siswa'] = '';
                 $activeSubMenu['t01_sekolah'] = '';
+                $activeSubMenu['t85_users'] = '';
                 $activeSubMenu[$this->uri->segment(1)] = 'active';
                 switch($this->uri->segment(1)) {
                     case 't00_siswa':
                     case 't01_sekolah':
+                    case 't85_users':
                         $activeHeadMenu['master'] = 'active';
                         $menuOpen = 'menu-open';
                         break;
@@ -78,6 +68,12 @@
                             <a href="<?= site_url() ?>t01_sekolah" class="nav-link <?= $activeSubMenu['t01_sekolah'] ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sekolah</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= site_url() ?>auth" class="nav-link <?= $activeSubMenu['t85_users'] ?>">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>User</p>
                             </a>
                         </li>
                     </ul>
