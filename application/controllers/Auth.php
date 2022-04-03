@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Class Auth
- * @property Ion_auth|Ion_auth_model $ion_auth        The ION Auth spark
- * @property CI_Form_validation      $form_validation The form validation library
- */
+* Class Auth
+* @property Ion_auth|Ion_auth_model $ion_auth        The ION Auth spark
+* @property CI_Form_validation      $form_validation The form validation library
+*/
 class Auth extends CI_Controller
 {
 	public $data = [];
@@ -22,8 +22,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Redirect if needed, otherwise display the user list
-	 */
+	* Redirect if needed, otherwise display the user list
+	*/
 	public function index()
 	{
 
@@ -40,28 +40,31 @@ class Auth extends CI_Controller
 		else
 		{
 			$this->data['title'] = $this->lang->line('index_heading');
-			
+
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
 			$this->data['users'] = $this->ion_auth->users()->result();
-			
+
 			//USAGE NOTE - you can do more complicated queries like this
 			//$this->data['users'] = $this->ion_auth->where('field', 'value')->users()->result();
-			
+
 			foreach ($this->data['users'] as $k => $user)
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			$this->data['_judulHalaman'] = 'Data User';
+			$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'index';
+			$this->load->view('dashboard/dashboard', $this->data);
 		}
 	}
 
 	/**
-	 * Log the user in
-	 */
+	* Log the user in
+	*/
 	public function login()
 	{
 		$this->data['title'] = $this->lang->line('login_heading');
@@ -115,8 +118,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Log the user out
-	 */
+	* Log the user out
+	*/
 	public function logout()
 	{
 		$this->data['title'] = "Logout";
@@ -129,8 +132,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Change password
-	 */
+	* Change password
+	*/
 	public function change_password()
 	{
 		$this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
@@ -199,12 +202,12 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Forgot password
-	 */
+	* Forgot password
+	*/
 	public function forgot_password()
 	{
 		$this->data['title'] = $this->lang->line('forgot_password_heading');
-		
+
 		// setting validation rules by checking whether identity is username or email
 		if ($this->config->item('identity', 'ion_auth') != 'email')
 		{
@@ -277,10 +280,10 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Reset password - final step for forgotten password
-	 *
-	 * @param string|null $code The reset code
-	 */
+	* Reset password - final step for forgotten password
+	*
+	* @param string|null $code The reset code
+	*/
 	public function reset_password($code = NULL)
 	{
 		if (!$code)
@@ -289,7 +292,7 @@ class Auth extends CI_Controller
 		}
 
 		$this->data['title'] = $this->lang->line('reset_password_heading');
-		
+
 		$user = $this->ion_auth->forgotten_password_check($code);
 
 		if ($user)
@@ -373,11 +376,11 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Activate the user
-	 *
-	 * @param int         $id   The user ID
-	 * @param string|bool $code The activation code
-	 */
+	* Activate the user
+	*
+	* @param int         $id   The user ID
+	* @param string|bool $code The activation code
+	*/
 	public function activate($id, $code = FALSE)
 	{
 		$activation = FALSE;
@@ -406,10 +409,10 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Deactivate the user
-	 *
-	 * @param int|string|null $id The user ID
-	 */
+	* Deactivate the user
+	*
+	* @param int|string|null $id The user ID
+	*/
 	public function deactivate($id = NULL)
 	{
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -457,8 +460,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Create a new user
-	 */
+	* Create a new user
+	*/
 	public function create_user()
 	{
 		$this->data['title'] = $this->lang->line('create_user_heading');
@@ -564,7 +567,12 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+
+			$this->data['_judulHalaman'] = 'Data User';
+			$this->data['_judulForm'] = 'Tambah Data';
+			$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_user';
+			$this->load->view('dashboard/dashboard', $this->data);
 		}
 	}
 	/**
@@ -578,10 +586,10 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Edit a user
-	 *
-	 * @param int|string $id
-	 */
+	* Edit a user
+	*
+	* @param int|string $id
+	*/
 	public function edit_user($id)
 	{
 		$this->data['title'] = $this->lang->line('edit_user_heading');
@@ -594,10 +602,10 @@ class Auth extends CI_Controller
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result_array();
-			
+
 		//USAGE NOTE - you can do more complicated queries like this
 		//$groups = $this->ion_auth->where(['field' => 'value'])->groups()->result_array();
-	
+
 
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
@@ -640,7 +648,7 @@ class Auth extends CI_Controller
 				{
 					// Update the groups user belongs to
 					$this->ion_auth->remove_from_group('', $id);
-					
+
 					$groupData = $this->input->post('groups');
 					if (isset($groupData) && !empty($groupData))
 					{
@@ -721,8 +729,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * Create a new group
-	 */
+	* Create a new group
+	*/
 	public function create_group()
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
@@ -746,11 +754,11 @@ class Auth extends CI_Controller
 				redirect("auth", 'refresh');
 			}
 			else
-            		{
+			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-            		}			
+			}
 		}
-			
+
 		// display the create group form
 		// set the flash data error message if there is one
 		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
@@ -769,14 +777,14 @@ class Auth extends CI_Controller
 		];
 
 		$this->_render_page('auth/create_group', $this->data);
-		
+
 	}
 
 	/**
-	 * Edit a group
-	 *
-	 * @param int|string $id
-	 */
+	* Edit a group
+	*
+	* @param int|string $id
+	*/
 	public function edit_group($id)
 	{
 		// bail if no group id given
@@ -813,7 +821,7 @@ class Auth extends CI_Controller
 				else
 				{
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
-				}				
+				}
 			}
 		}
 
@@ -832,7 +840,7 @@ class Auth extends CI_Controller
 		if ($this->config->item('admin_group', 'ion_auth') === $group->name) {
 			$this->data['group_name']['readonly'] = 'readonly';
 		}
-		
+
 		$this->data['group_description'] = [
 			'name'  => 'group_description',
 			'id'    => 'group_description',
@@ -844,8 +852,8 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * @return array A CSRF key-value pair
-	 */
+	* @return array A CSRF key-value pair
+	*/
 	public function _get_csrf_nonce()
 	{
 		$this->load->helper('string');
@@ -858,24 +866,24 @@ class Auth extends CI_Controller
 	}
 
 	/**
-	 * @return bool Whether the posted CSRF token matches
-	 */
+	* @return bool Whether the posted CSRF token matches
+	*/
 	public function _valid_csrf_nonce(){
 		$csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
 		if ($csrfkey && $csrfkey === $this->session->flashdata('csrfvalue'))
 		{
 			return TRUE;
 		}
-			return FALSE;
+		return FALSE;
 	}
 
 	/**
-	 * @param string     $view
-	 * @param array|null $data
-	 * @param bool       $returnhtml
-	 *
-	 * @return mixed
-	 */
+	* @param string     $view
+	* @param array|null $data
+	* @param bool       $returnhtml
+	*
+	* @return mixed
+	*/
 	public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
 	{
 

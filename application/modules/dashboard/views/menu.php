@@ -36,12 +36,13 @@
                 $activeHeadMenu['master'] = '';
                 $activeSubMenu['t00_siswa'] = '';
                 $activeSubMenu['t01_sekolah'] = '';
-                $activeSubMenu['t85_users'] = '';
+                $activeSubMenu['auth'] = '';
                 $activeSubMenu[$this->uri->segment(1)] = 'active';
                 switch($this->uri->segment(1)) {
                     case 't00_siswa':
                     case 't01_sekolah':
                     case 't85_users':
+                    case 'auth':
                         $activeHeadMenu['master'] = 'active';
                         $menuOpen = 'menu-open';
                         break;
@@ -71,7 +72,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= site_url() ?>auth" class="nav-link <?= $activeSubMenu['t85_users'] ?>">
+                            <a href="<?= site_url() ?>auth" class="nav-link <?= $activeSubMenu['auth'] ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>User</p>
                             </a>
