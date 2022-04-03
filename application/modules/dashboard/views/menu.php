@@ -3,7 +3,8 @@
     <!-- Brand Logo -->
     <a href="<?= site_url() ?>" class="brand-link">
         <img src="<?= base_url() ?>assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <!-- <span class="brand-text font-weight-light">AdminLTE 3</span> -->
+        <span class="brand-text font-weight-light"><?= APP_BRAND ?></span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +15,8 @@
                 <!-- <img src="<?= base_url() ?>assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <!-- <a href="#" class="d-block">Alexander Pierce</a> -->
+                <a href="#" class="d-block"><?= $this->ion_auth->logged_in() ? $this->ion_auth->user()->row()->first_name : 'Guest' ?></a>
             </div>
         </div>
 
@@ -24,6 +26,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
 
+
+                <!-- - - - - - - - - - - dashboard - - - - - - - - - - -->
                 <li class="nav-item">
                     <a href="<?= site_url() ?>" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -31,54 +35,81 @@
                     </a>
                 </li>
 
-                <?php
-                $menuOpen = '';
-                $activeHeadMenu['master'] = '';
-                $activeSubMenu['t00_siswa'] = '';
-                $activeSubMenu['t01_sekolah'] = '';
-                $activeSubMenu['auth'] = '';
-                $activeSubMenu[$this->uri->segment(1)] = 'active';
-                switch($this->uri->segment(1)) {
-                    case 't00_siswa':
-                    case 't01_sekolah':
-                    case 't85_users':
-                    case 'auth':
-                        $activeHeadMenu['master'] = 'active';
-                        $menuOpen = 'menu-open';
-                        break;
-                }
+                <!-- Check to see if a user is logged in. -->
+                <?php if ($this->ion_auth->logged_in()) { ?>
 
-                ?>
 
-                <li class="nav-item <?= $menuOpen ?>">
-                    <a href="#" class="nav-link <?= $activeHeadMenu['master'] ?>">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>
-                            Master
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="<?= site_url() ?>t00_siswa" class="nav-link <?= $activeSubMenu['t00_siswa'] ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Siswa</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= site_url() ?>t01_sekolah" class="nav-link <?= $activeSubMenu['t01_sekolah'] ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sekolah</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?= site_url() ?>auth" class="nav-link <?= $activeSubMenu['auth'] ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>User</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <!-- - - - - - - - - - - master - - - - - - - - - - -  -->
+                    <?php
+                    $menuOpen = '';
+                    $activeHeadMenu['master'] = '';
+                    $activeSubMenu['t00_siswa'] = '';
+                    $activeSubMenu['t01_sekolah'] = '';
+                    $activeSubMenu['auth'] = '';
+                    $activeSubMenu[$this->uri->segment(1)] = 'active';
+                    switch($this->uri->segment(1)) {
+                        case 't00_siswa':
+                        case 't01_sekolah':
+                        case 't85_users':
+                        case 'auth':
+                            $activeHeadMenu['master'] = 'active';
+                            $menuOpen = 'menu-open';
+                            break;
+                    }
+                    ?>
+                    <li class="nav-item <?= $menuOpen ?>">
+                        <a href="#" class="nav-link <?= $activeHeadMenu['master'] ?>">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= site_url() ?>t00_siswa" class="nav-link <?= $activeSubMenu['t00_siswa'] ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Siswa</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url() ?>t01_sekolah" class="nav-link <?= $activeSubMenu['t01_sekolah'] ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sekolah</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url() ?>auth" class="nav-link <?= $activeSubMenu['auth'] ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>User</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <!-- - - - - - - - - - - logout - - - - - - - - - - -  -->
+                    <li class="nav-item">
+                        <a href="<?= site_url() ?>auth/logout" class="nav-link">
+                            <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+                            <p class="text">Logout</p>
+                        </a>
+                    </li>
+
+
+                <?php } else { ?>
+
+
+                    <!-- - - - - - - - - - - login - - - - - - - - - - - - -->
+                    <li class="nav-item">
+                        <a href="<?= site_url() ?>auth/login" class="nav-link">
+                            <i class="nav-icon fas fa-sign-in-alt text-danger"></i>
+                            <p class="text">Login</p>
+                        </a>
+                    </li>
+
+
+                <?php } ?>
 
                 <!-- <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
