@@ -58,14 +58,12 @@
                 <?php echo lang('edit_user_groups_heading', 'Groups', 'class="col-sm-2 col-form-label"');?>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <?php foreach ($groups as $group):?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>" <?php echo (in_array($group, $currentGroups)) ? 'checked="checked"' : null; ?>>
-                                    <label class="form-check-label"><?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?></label>
-                                </div>
-                            <?php endforeach?>
-                        </div>
+                        <?php foreach ($groups as $group):?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>" <?php echo (in_array($group, $currentGroups)) ? 'checked="checked"' : null; ?>>
+                                <label class="form-check-label"><?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?></label>
+                            </div>
+                        <?php endforeach?>
                     </div>
                 </div>
 

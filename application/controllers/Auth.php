@@ -434,7 +434,12 @@ class Auth extends CI_Controller
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 			$this->data['identity'] = $this->config->item('identity', 'ion_auth');
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+
+			$this->data['_judulHalaman'] = 'Data User & Group';
+			$this->data['_judulForm'] = 'Deactivate Data';
+			$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'deactivate_user';
+			$this->load->view('dashboard/dashboard', $this->data);
 		}
 		else
 		{
@@ -569,8 +574,8 @@ class Auth extends CI_Controller
 
 			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 
-			$this->data['_judulHalaman'] = 'Data User';
-			$this->data['_judulForm'] = 'Tambah Data';
+			$this->data['_judulHalaman'] = 'Data User & Group';
+			$this->data['_judulForm'] = 'Tambah Data User';
 			$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_user';
 			$this->load->view('dashboard/dashboard', $this->data);
 		}
@@ -727,8 +732,8 @@ class Auth extends CI_Controller
 
 		// $this->_render_page('auth/edit_user', $this->data);
 
-		$this->data['_judulHalaman'] = 'Data User';
-		$this->data['_judulForm'] = 'Ubah Data';
+		$this->data['_judulHalaman'] = 'Data User & Group';
+		$this->data['_judulForm'] = 'Ubah Data User';
 		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'edit_user';
 		$this->load->view('dashboard/dashboard', $this->data);
 	}
@@ -783,8 +788,8 @@ class Auth extends CI_Controller
 
 		// $this->_render_page('auth/create_group', $this->data);
 
-		$this->data['_judulHalaman'] = 'Data Group';
-		$this->data['_judulForm'] = 'Tambah Data';
+		$this->data['_judulHalaman'] = 'Data User & Group';
+		$this->data['_judulForm'] = 'Tambah Data Group';
 		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_group';
 		$this->load->view('dashboard/dashboard', $this->data);
 
@@ -860,8 +865,8 @@ class Auth extends CI_Controller
 
 		// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 
-		$this->data['_judulHalaman'] = 'Data Group';
-		$this->data['_judulForm'] = 'Ubah Data';
+		$this->data['_judulHalaman'] = 'Data User & Group';
+		$this->data['_judulForm'] = 'Ubah Data Group';
 		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'edit_group';
 		$this->load->view('dashboard/dashboard', $this->data);
 	}

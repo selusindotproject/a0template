@@ -135,8 +135,12 @@
                                         ?>
                                         <?php foreach ($this->uri->segments as $segment): ?>
 
-                                            <?php if ($segment == 'update' || $segment == 'edit_user') { ?>
-                                                <li class="breadcrumb-item active">Ubah Data</li>
+                                            <?php if ($segment == 'update' || $segment == 'edit_user' || $segment == 'edit_group' || $segment == 'deactivate') { ?>
+                                                <?php if ($segment == 'deactivate') { ?>
+                                                    <li class="breadcrumb-item active">Deactivate</li>
+                                                <?php } else { ?>
+                                                    <li class="breadcrumb-item active">Ubah Data</li>
+                                                <?php } ?>
                                                 <?php break; ?>
                                             <?php } ?>
 
