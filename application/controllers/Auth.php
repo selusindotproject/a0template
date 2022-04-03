@@ -725,7 +725,12 @@ class Auth extends CI_Controller
 			'type' => 'password'
 		];
 
-		$this->_render_page('auth/edit_user', $this->data);
+		// $this->_render_page('auth/edit_user', $this->data);
+
+		$this->data['_judulHalaman'] = 'Data User';
+		$this->data['_judulForm'] = 'Ubah Data';
+		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'edit_user';
+		$this->load->view('dashboard/dashboard', $this->data);
 	}
 
 	/**
@@ -776,7 +781,12 @@ class Auth extends CI_Controller
 			'value' => $this->form_validation->set_value('description'),
 		];
 
-		$this->_render_page('auth/create_group', $this->data);
+		// $this->_render_page('auth/create_group', $this->data);
+
+		$this->data['_judulHalaman'] = 'Data Group';
+		$this->data['_judulForm'] = 'Tambah Data';
+		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_group';
+		$this->load->view('dashboard/dashboard', $this->data);
 
 	}
 
@@ -848,7 +858,12 @@ class Auth extends CI_Controller
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		];
 
-		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+
+		$this->data['_judulHalaman'] = 'Data Group';
+		$this->data['_judulForm'] = 'Ubah Data';
+		$this->data['_view'] = 'auth' . DIRECTORY_SEPARATOR . 'edit_group';
+		$this->load->view('dashboard/dashboard', $this->data);
 	}
 
 	/**

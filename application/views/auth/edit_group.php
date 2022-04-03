@@ -1,20 +1,36 @@
-<h1><?php echo lang('edit_group_heading');?></h1>
-<p><?php echo lang('edit_group_subheading');?></p>
-
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open(current_url());?>
+<div class="card card-primary">
 
-      <p>
-            <?php echo lang('edit_group_name_label', 'group_name');?> <br />
-            <?php echo form_input($group_name);?>
-      </p>
+    <div class="card-header">
+        <h3 class="card-title"><?= $_judulForm ?></h3>
+    </div>
 
-      <p>
-            <?php echo lang('edit_group_desc_label', 'description');?> <br />
-            <?php echo form_input($group_description);?>
-      </p>
+    <?php echo form_open(current_url(), 'class="form-horizontal"');?>
 
-      <p><?php echo form_submit('submit', lang('edit_group_submit_btn'));?></p>
+    <div class="card-body">
 
-<?php echo form_close();?>
+        <div class="form-group row">
+            <?php echo lang('edit_group_name_label', 'group_name', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($group_name, '', 'class="form-control"');?>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <?php echo lang('edit_group_desc_label', 'description', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($group_description, '', 'class="form-control"');?>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card-footer">
+        <?php echo form_submit('submit', lang('edit_group_submit_btn'), 'class="btn btn-primary"');?>
+        <a href="<?php echo site_url('auth') ?>" class="btn btn-default">Batal</a>
+    </div>
+
+    <?php echo form_close();?>
+
+</div>

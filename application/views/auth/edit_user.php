@@ -1,55 +1,89 @@
-<h1><?php echo lang('edit_user_heading');?></h1>
-<p><?php echo lang('edit_user_subheading');?></p>
-
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open(uri_string());?>
+<div class="card card-primary">
 
-      <p>
-            <?php echo lang('edit_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
+    <div class="card-header">
+        <h3 class="card-title"><?= $_judulForm ?></h3>
+    </div>
 
-      <p>
-            <?php echo lang('edit_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
+    <?php echo form_open(uri_string(), 'class="form-horizontal"');?>
 
-      <p>
-            <?php echo lang('edit_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
+    <div class="card-body">
 
-      <p>
-            <?php echo lang('edit_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
+        <div class="form-group row">
+            <?php echo lang('edit_user_fname_label', 'first_name', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($first_name, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-      <p>
-            <?php echo lang('edit_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
+        <div class="form-group row">
+            <?php echo lang('edit_user_lname_label', 'last_name', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($last_name, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-      <p>
-            <?php echo lang('edit_user_password_confirm_label', 'password_confirm');?><br />
-            <?php echo form_input($password_confirm);?>
-      </p>
+        <div class="form-group row">
+            <?php echo lang('edit_user_company_label', 'company', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($company, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-      <?php if ($this->ion_auth->is_admin()): ?>
+        <div class="form-group row">
+            <?php echo lang('edit_user_phone_label', 'phone', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($phone, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-          <h3><?php echo lang('edit_user_groups_heading');?></h3>
-          <?php foreach ($groups as $group):?>
-              <label class="checkbox">
-              <input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>" <?php echo (in_array($group, $currentGroups)) ? 'checked="checked"' : null; ?>>
-              <?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?>
-              </label>
-          <?php endforeach?>
+        <div class="form-group row">
+            <?php echo lang('edit_user_password_label', 'password', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($password, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-      <?php endif ?>
+        <div class="form-group row">
+            <?php echo lang('edit_user_password_confirm_label', 'password_confirm', 'class="col-sm-2 col-form-label"');?>
+            <div class="col-sm-10">
+                <?php echo form_input($password_confirm, '', 'class="form-control"');?>
+            </div>
+        </div>
 
-      <?php echo form_hidden('id', $user->id);?>
-      <?php echo form_hidden($csrf); ?>
+        <?php if ($this->ion_auth->is_admin()): ?>
 
-      <p><?php echo form_submit('submit', lang('edit_user_submit_btn'));?></p>
+            <div class="form-group row">
+                <?php echo lang('edit_user_groups_heading', 'Groups', 'class="col-sm-2 col-form-label"');?>
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <?php foreach ($groups as $group):?>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="groups[]" value="<?php echo $group['id'];?>" <?php echo (in_array($group, $currentGroups)) ? 'checked="checked"' : null; ?>>
+                                    <label class="form-check-label"><?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?></label>
+                                </div>
+                            <?php endforeach?>
+                        </div>
+                    </div>
+                </div>
 
-<?php echo form_close();?>
+
+            </div>
+
+        <?php endif ?>
+
+        <?php echo form_hidden('id', $user->id);?>
+        <?php echo form_hidden($csrf); ?>
+
+    </div>
+
+    <div class="card-footer">
+        <?php echo form_submit('submit', lang('edit_user_submit_btn'), 'class="btn btn-primary"');?>
+        <a href="<?php echo site_url('auth') ?>" class="btn btn-default">Batal</a>
+    </div>
+
+    <?php echo form_close();?>
+
+</div>
