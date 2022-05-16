@@ -8,7 +8,7 @@ class T70_grup1_model extends CI_Model
 
     public $table = 't70_grup1';
     public $id = 'id';
-    public $order = 'DESC';
+    public $order = 'ASC';
 
     function __construct()
     {

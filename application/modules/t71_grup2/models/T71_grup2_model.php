@@ -17,10 +17,11 @@ class T71_grup2_model extends CI_Model
 
     // datatables
     function json() {
-        $this->datatables->select('id,induk,kode,nama');
-        $this->datatables->from('t71_grup2');
+        $this->datatables->select('g2.id,concat(g1.kode, "-", g1.nama) as induk,g2.kode,g2.nama');
+        $this->datatables->from('t71_grup2 g2');
         //add this line for join
         //$this->datatables->join('table2', 't71_grup2.field = table2.field');
+        $this->datatables->join('t70_grup1 g1', 'g2.induk = g1.id');
         $this->datatables->add_column('action',
         anchor(site_url('t71_grup2/update/$1'), '<i class="fa fa-edit"></i>', 'class="btn btn-primary" title="Ubah"')
         .'&nbsp;'
