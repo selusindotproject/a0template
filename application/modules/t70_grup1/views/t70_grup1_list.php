@@ -7,7 +7,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-					<th>Induk</th>
+					<!-- <th>Induk</th> -->
 					<th>Kode</th>
 					<th>Nama</th>
                     <th>Action</th>
@@ -45,7 +45,8 @@
                 {
                     "data": "id",
                     "orderable": false
-                },{"data": "induk"},{"data": "kode"},{"data": "nama"},
+                }, //{"data": "induk"},
+                {"data": "kode"},{"data": "nama"},
                 {
                     "data" : "action",
                     "orderable": false,

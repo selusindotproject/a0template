@@ -9,12 +9,14 @@
 
     <div class="card-body">
 
-        <div class="form-group row">
+        <input type="hidden" class="form-control" name="induk" id="induk" placeholder="Induk" value="<?php echo $induk; ?>" />
+
+        <!-- <div class="form-group row">
             <label for="int" class="col-sm-2 col-form-label">Induk <?php echo form_error('induk') ?></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="induk" id="induk" placeholder="Induk" value="<?php echo $induk; ?>" />
+                <input type="text" class="form-control" name="induk" id="induk" placeholder="Induk" value="<?php //echo $induk; ?>" />
             </div>
-        </div>
+        </div> -->
         
         <div class="form-group row">
             <label for="varchar" class="col-sm-2 col-form-label">Kode <?php echo form_error('kode') ?></label>

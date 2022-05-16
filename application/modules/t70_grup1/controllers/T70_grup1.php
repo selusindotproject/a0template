@@ -71,7 +71,7 @@ class T70_grup1 extends CI_Controller
             $this->create();
         } else {
             $data = array(
-				'induk' => $this->input->post('induk',TRUE),
+				'induk' => 0,
 				'kode' => $this->input->post('kode',TRUE),
 				'nama' => $this->input->post('nama',TRUE),
 			);
@@ -114,7 +114,7 @@ class T70_grup1 extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-				'induk' => $this->input->post('induk',TRUE),
+				'induk' => 0,
 				'kode' => $this->input->post('kode',TRUE),
 				'nama' => $this->input->post('nama',TRUE),
 			);

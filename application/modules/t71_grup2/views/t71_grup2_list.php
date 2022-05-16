@@ -7,7 +7,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-					<th>Induk</th>
+					<th>Induk - Grup 1</th>
 					<th>Kode</th>
 					<th>Nama</th>
                     <th>Action</th>

@@ -10,7 +10,7 @@
 	<div class="card-body">
 
 		<div class="form-group row">
-			<label for="int" class="col-sm-2 col-form-label">Induk <?php echo form_error('induk') ?></label>
+			<label for="int" class="col-sm-2 col-form-label">Induk - Grup 1 <?php echo form_error('induk') ?></label>
 			<div class="col-sm-10">
 				<!-- <input type="text" class="form-control" name="induk" id="induk" placeholder="Induk" value="<?php //echo $induk; ?>" /> -->
 				<select class="form-control select2" style="width: 100%;" name="induk" id="induk">
@@ -18,13 +18,6 @@
 					<?php foreach($dataGrup1 as $row) { ?>
 					<option value="<?= $row->id ?>" <?= $row->id == $induk ? 'selected' : '' ?>><?= $row->kode . ' - ' . $row->nama ?></option>
 					<?php } ?>
-					<!-- <option selected="selected">Alabama</option>
-					<option>Alaska</option>
-					<option>California</option>
-					<option>Delaware</option>
-					<option>Tennessee</option>
-					<option>Texas</option>
-					<option>Washington</option> -->
 				</select>
 			</div>
 		</div>

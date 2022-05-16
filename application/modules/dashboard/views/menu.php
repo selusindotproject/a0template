@@ -48,6 +48,7 @@
                     $activeSubMenu['auth'] = '';
                     $activeSubMenu['t70_grup1'] = '';
                     $activeSubMenu['t71_grup2'] = '';
+                    $activeSubMenu['t72_grup3'] = '';
                     $activeSubMenu[$this->uri->segment(1)] = 'active';
                     switch($this->uri->segment(1)) {
                         case 't00_siswa':
@@ -56,6 +57,7 @@
                         case 'auth':
                         case 't70_grup1':
                         case 't71_grup2':
+                        case 't72_grup3':
                             $activeHeadMenu['master'] = 'active';
                             $menuOpen = 'menu-open';
                             break;
@@ -98,6 +100,12 @@
                                 <a href="<?= site_url() ?>t71_grup2" class="nav-link <?= $activeSubMenu['t71_grup2'] ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Grup 2</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url() ?>t72_grup3" class="nav-link <?= $activeSubMenu['t72_grup3'] ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Grup 3</p>
                                 </a>
                             </li>
                         </ul>

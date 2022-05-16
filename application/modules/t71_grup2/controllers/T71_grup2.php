@@ -90,6 +90,7 @@ class T71_grup2 extends CI_Controller
 		$row = $this->T71_grup2_model->get_by_id($id);
 
 		if ($row) {
+			$dataGrup1 = $this->T70_grup1_model->get_all();
 			$data = array(
 				'button' => 'Simpan',
 				'action' => site_url('t71_grup2/update_action'),
@@ -97,6 +98,7 @@ class T71_grup2 extends CI_Controller
 				'induk' => set_value('induk', $row->induk),
 				'kode' => set_value('kode', $row->kode),
 				'nama' => set_value('nama', $row->nama),
+				'dataGrup1' => $dataGrup1,
 			);
 			//$this->load->view('t71_grup2/t71_grup2_form', $data);
 			$data['_judulHalaman'] = 'Data Grup2';
